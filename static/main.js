@@ -1,7 +1,7 @@
 const body = document.getElementById("table-body");
 
 function inserting() {
-    fetch("/users")
+    fetch("/data")
         .then((response) => response.json())
         .then((data) => {
             data.forEach((row) => {
