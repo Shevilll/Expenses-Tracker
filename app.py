@@ -17,9 +17,9 @@ def get_data():
     quantity = request.form.get("quantity")
     price = request.form.get("price")
     time,date,day = timedateday()
+    cursor = db.cursor()
     if name and quantity and price:
         total = float(quantity)*float(price)
-        cursor = db.cursor()
         query = "INSERT INTO data values (?,?,?,?,?,?,?)"
         cursor.execute(query,(name,quantity,time,date,day,price,total))
         db.commit()
