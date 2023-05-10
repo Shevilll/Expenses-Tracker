@@ -11,7 +11,7 @@ db.execute("CREATE TABLE IF NOT EXISTS data (item VARCHAR(20), quantity int, tim
 def index():
     return render_template("index.html")
 
-@app.route('/users',methods=["POST","GET"])
+@app.route('/data',methods=["POST","GET"])
 def get_data():
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
