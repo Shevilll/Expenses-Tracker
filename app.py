@@ -1,4 +1,4 @@
-from flask import Flask, render_template,jsonify,request,redirect,url_for
+from flask import Flask, render_template,request,redirect
 import sqlite3
 import datetime
 
@@ -9,24 +9,21 @@ db.execute("CREATE TABLE IF NOT EXISTS data (item VARCHAR(20), quantity int, tim
 
 @app.route("/",methods=["POST", "GET"])
 def index():
-    return render_template("index.html")
+    data = db.execute("SELECT * FROM data").fetchall()
+    return render_template("index.html",data=data)
  
-@app.route('/data',methods=["POST","GET"])
+@app.route('/add',methods=["POST","GET"])
 def get_data():
     name = request.form.get("name")
     quantity = request.form.get("quantity")
     price = request.form.get("price")
     time,date,day = timedateday()
-    cursor = db.cursor()
     if name and quantity and price:
         total = float(quantity)*float(price)
         query = "INSERT INTO data values (?,?,?,?,?,?,?)"
-        cursor.execute(query,(name,quantity,time,date,day,price,total))
+        db.execute(query,(name,quantity,time,date,day,price,total))
         db.commit()
-    cursor.execute("SELECT * FROM data")
-    data = cursor.fetchall()
-    cursor.close()
-    return jsonify(data)
+    return redirect("/")
 
 def timedateday():
     now = datetime.datetime.now()
