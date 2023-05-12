@@ -4,7 +4,7 @@ import datetime
 
 app = Flask(__name__)
 db = sqlite3.connect("data.db",check_same_thread=False)
-db.execute("CREATE TABLE IF NOT EXISTS data (item VARCHAR(20), quantity int, time varchar(10), data varchar(12), day varchar(10), amount float, total float)")
+db.execute("CREATE TABLE IF NOT EXISTS data (item VARCHAR(20), quantity int, time varchar(10), date varchar(12), day varchar(10), amount float, total float)")
 
 
 @app.route("/",methods=["POST", "GET"])
@@ -32,6 +32,16 @@ def timedateday():
     day = now.strftime("%A")
     return time,date,day
 
+@app.route("/remove/<item>", methods=["POST", "GET"])
+def remove(item: str):
+        cur = db.cursor()
+        items = item.split(",")
+        print(items)
+        cur.execute(f"DELETE FROM data WHERE item=? and quantity=? and time=? and date=? and day=? and amount=? and total=?",
+                    (items[0], int(items[1]), items[2], items[3], items[4], float(items[5]), float(items[6])))
+        db.commit()
+        cur.close()
+        return redirect("/")
 if __name__ == "__main__":
     app.run(debug=True)
 

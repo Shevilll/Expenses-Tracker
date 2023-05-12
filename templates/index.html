@@ -21,7 +21,6 @@
                     <input
                         type="text"
                         class="form-control"
-                        placeholder="Name"
                         aria-label="Name"
                         aria-describedby="basic-addon1"
                         name="name"
@@ -32,14 +31,14 @@
 
                 <div class="input-group mb-3">
                     <input
-                        type="text"
+                        type="number"
                         class="form-control"
-                        placeholder="Quantity"
                         aria-label="Quantity"
                         aria-describedby="basic-addon2"
                         name="quantity"
                         required
                         autocomplete="off"
+                        min="0"
                     />
                     <span class="input-group-text" id="basic-addon2"
                         >Quantity</span
@@ -47,18 +46,26 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
+                    <span class="input-group-text">₹</span>
                     <input
-                        type="text"
+                        type="number"
                         class="form-control"
                         aria-label="Amount (to the nearest dollar)"
                         name="price"
                         required
                         autocomplete="off"
+                        min="0"
                     />
                     <span class="input-group-text">.00</span>
                 </div>
                 <button class="btn btn-secondary" type="submit">Submit</button>
+                <button
+                    class="btn btn-danger buttonfordiv"
+                    type="button"
+                    onclick="displaybuttonformdiv('block')"
+                >
+                    Remove Items
+                </button>
             </form>
             <table class="table table-dark table-striped table-hover">
                 <thead>
@@ -69,6 +76,7 @@
                     <th>Day</th>
                     <th>Amount</th>
                     <th>Total</th>
+                    <th class="button-form-div">Remove</th>
                 </thead>
                 <tbody id="table-body">
                     {% block tbody%} {% if data %} {% for row in data %}
@@ -80,12 +88,19 @@
                         <td>{{row[4]}}</td>
                         <td>{{row[5]}}</td>
                         <td>{{row[6]}}</td>
+                        <form
+                            action="/remove/{{row[0]}},{{row[1]}},{{row[2]}},{{row[3]}},{{row[4]}},{{row[5]}},{{row[6]}}"
+                            method="post"
+                        >
+                            <td class="button-form-div">
+                                <button type="submit">Remove</button>
+                            </td>
+                        </form>
                     </tr>
                     {% endfor %} {% endif %} {% endblock %}
                 </tbody>
             </table>
         </div>
-
         <script src="/static/main.js"></script>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

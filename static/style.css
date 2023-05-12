@@ -2,3 +2,13 @@
     background-color: rgb(118, 107, 107);
     color: aliceblue;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.button-form-div {
+    display: none;
+}
