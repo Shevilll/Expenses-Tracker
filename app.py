@@ -32,16 +32,19 @@ def timedateday():
     day = now.strftime("%A")
     return time,date,day
 
-@app.route("/remove/<item>", methods=["POST", "GET"])
-def remove(item: str):
+@app.route("/remove", methods=["POST", "GET"])
+def remove():
         cur = db.cursor()
-        items = item.split(",")
-        print(items)
-        cur.execute(f"DELETE FROM data WHERE item=? and quantity=? and time=? and date=? and day=? and amount=? and total=?",
-                    (items[0], int(items[1]), items[2], items[3], items[4], float(items[5]), float(items[6])))
-        db.commit()
+        checked_items = request.form.getlist("items")
+        for items in checked_items:
+            items = items.split(",")
+            cur.execute(f"DELETE FROM data WHERE item=? and quantity=? and time=? and date=? and day=? and amount=? and total=?",
+                        (items[0], int(items[1]), items[2], items[3], items[4], float(items[5]), float(items[6])))
+            db.commit()
         cur.close()
         return redirect("/")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
