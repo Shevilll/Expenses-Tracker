@@ -59,15 +59,10 @@
                     <span class="input-group-text">.00</span>
                 </div>
                 <button class="btn btn-secondary" type="submit">Submit</button>
-                <button
-                    class="btn btn-danger buttonfordiv"
-                    type="button"
-                    onclick="displaybuttonformdiv('block')"
-                >
-                    Remove Items
-                </button>
             </form>
-            <table class="table table-dark table-striped table-hover">
+            <table
+                class="table table-dark table-striped table-hover text-nowrap"
+            >
                 <thead>
                     <th>Item</th>
                     <th>Quantity</th>
@@ -76,7 +71,7 @@
                     <th>Day</th>
                     <th>Amount</th>
                     <th>Total</th>
-                    <th class="button-form-div">Remove</th>
+                    <th id="button-form-div">Remove</th>
                 </thead>
                 <tbody id="table-body">
                     {% block tbody%} {% if data %} {% for row in data %}
@@ -88,18 +83,36 @@
                         <td>{{row[4]}}</td>
                         <td>{{row[5]}}</td>
                         <td>{{row[6]}}</td>
-                        <form
-                            action="/remove/{{row[0]}},{{row[1]}},{{row[2]}},{{row[3]}},{{row[4]}},{{row[5]}},{{row[6]}}"
-                            method="post"
-                        >
-                            <td class="button-form-div">
-                                <button type="submit">Remove</button>
-                            </td>
-                        </form>
+                        <td id="button-form-div">
+                            <form action="/remove" method="POST">
+                            <input type="checkbox" name="items"
+                            value="{{row[0]}},{{row[1]}},{{row[2]}},{{row[3]}},{{row[4]}},{{row[5]}},{{row[6]}}"
+                            class="form-check-input"
+                                ></input
+                            >
+                        </td>
                     </tr>
                     {% endfor %} {% endif %} {% endblock %}
                 </tbody>
             </table>
+                    <button type="submit" class="btn btn-danger" id="buttoncheckeditems">Remove Checked Items</button>
+                </form>
+            <button
+                class="btn btn-danger"
+                id="buttonfordiv"
+                type="button"
+                onclick="displaybuttonformdiv('block')"
+            >
+                Remove Items
+            </button>
+            <button
+                class="btn btn-danger"
+                id="buttonforremovediv"
+                type="button"
+                onclick="displaybuttonformdiv('none')"
+            >
+                Cancel Remove
+            </button>
         </div>
         <script src="/static/main.js"></script>
         <script
