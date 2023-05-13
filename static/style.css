@@ -1,6 +1,8 @@
 #body {
     background-color: rgb(118, 107, 107);
     color: aliceblue;
+    text-align: center;
+    margin: 0 auto;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -9,6 +11,16 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-.button-form-div {
+.button-form-div,
+#button-form-div,
+#buttonforremovediv,
+#buttoncheckeditems {
     display: none;
+    text-align: center;
+    margin: 0 auto;
+}
+#buttonfordiv {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
 }
