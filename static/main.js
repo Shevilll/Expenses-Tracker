@@ -1,6 +1,3 @@
-const homepage = document.getElementById("HomePage");
-homepage.style.display = "block";
-
 function displaybuttonformdiv(value) {
     const buttonformdiv = document.querySelectorAll("#button-form-div");
     const buttonfordiv = document.querySelector("#buttonfordiv");
@@ -20,3 +17,42 @@ function displaybuttonformdiv(value) {
         buttoncheckeditems.style.display = "block";
     }
 }
+
+function updatedropdown() {
+    const monthyear = JSON.parse(localStorage.getItem("monthyear")) || [];
+    const dropdown_menu = document.querySelector(".dropdown-menu");
+    const now = new Date();
+    const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const monthYear = monthNames[now.getMonth()] + "-" + now.getFullYear();
+    if (!monthyear.includes(monthYear)) {
+        monthyear.push(monthYear);
+        localStorage.setItem("monthyear", JSON.stringify(monthyear));
+    }
+
+    monthyear.forEach((item) => {
+        const element = document.createElement("li");
+        const button = document.createElement("button");
+        button.className = "dropdown-item";
+        button.role = "button";
+        button.name = "monthyear";
+        button.value = item;
+        button.innerText = item;
+        element.append(button);
+        dropdown_menu.appendChild(element);
+    });
+}
+
+updatedropdown();
