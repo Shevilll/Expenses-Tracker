@@ -4,7 +4,7 @@ import datetime
 
 app = Flask(__name__)
 db = sqlite3.connect("data.db",check_same_thread=False)
-db.execute("CREATE TABLE IF NOT EXISTS data (item VARCHAR(20), quantity int, time varchar(10), date varchar(12), day varchar(10), amount float, total float)")
+db.execute("CREATE TABLE IF NOT EXISTS data (item VARCHAR(20),radio varchar(10), quantity int, time varchar(10), date varchar(12), day varchar(10), amount float, total float)")
 
 
 @app.route("/",methods=["POST", "GET"])
@@ -17,11 +17,12 @@ def get_data():
     name = request.form.get("name")
     quantity = request.form.get("quantity")
     price = request.form.get("price")
+    radio = request.form.get("earned/spent")
     time,date,day = timedateday()
-    if name and quantity and price:
+    if name and quantity and price and radio:
         total = float(quantity)*float(price)
-        query = "INSERT INTO data values (?,?,?,?,?,?,?)"
-        db.execute(query,(name,quantity,time,date,day,price,total))
+        query = "INSERT INTO data values (?,?,?,?,?,?,?,?)"
+        db.execute(query,(name,radio,quantity,time,date,day,price,total))
         db.commit()
     return redirect("/")
 
@@ -38,12 +39,17 @@ def remove():
         checked_items = request.form.getlist("items")
         for items in checked_items:
             items = items.split(",")
-            cur.execute(f"DELETE FROM data WHERE item=? and quantity=? and time=? and date=? and day=? and amount=? and total=?",
-                        (items[0], int(items[1]), items[2], items[3], items[4], float(items[5]), float(items[6])))
+            cur.execute(f"DELETE FROM data WHERE item=? and radio=? and quantity=? and time=? and date=? and day=? and amount=? and total=?",
+                        (items[0],items[1], int(items[2]), items[3], items[4], items[5], float(items[6]), float(items[7])))
             db.commit()
         cur.close()
         return redirect("/")
 
+@app.route("/dropdown",methods=["POST", "GET"])
+def dropdown():
+     monthyear = request.form["monthyear"]
+     print(monthyear)
+     return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
