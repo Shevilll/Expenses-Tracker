@@ -14,7 +14,42 @@
         />
     </head>
     <body id="body">
-        <div id="HomePage">
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" onclick="window.open(`https://github.com/Shevilll`, `_blank`);" style="cursor:pointer;">SheviL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Month-Year
+          </a>
+          <form action="/dropdown" method="post">
+          <ul class="dropdown-menu">
+          </ul>
+          </form>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Thankyou for visiting!</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+        <hr>
+        <div id="mainpage bg-dark" data-bs-theme="dark">
             <form action="/add" method="post" id="main-form">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Item</span>
@@ -58,7 +93,16 @@
                     />
                     <span class="input-group-text">.00</span>
                 </div>
+                <div class="form-check form-check-inline" style="font-size: 20px;">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="earned" required>
+  <label class="form-check-label" for="inlineRadio1">Earned</label>
+</div>
+<div class="form-check form-check-inline" style="font-size: 20px;">
+  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="spent" required>
+  <label class="form-check-label" for="inlineRadio2">Spent</label>
+</div><br><br>
                 <button class="btn btn-secondary" type="submit">Submit</button>
+                <hr>
             </form>
             {% block tbody%} {% if data %}
             <table
@@ -112,7 +156,7 @@
                 type="button"
                 onclick="displaybuttonformdiv('none')"
             >
-                Cancel Remove
+                Cancel
             </button>
              {% endif %} {% endblock %}
         </div>
