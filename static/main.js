@@ -19,8 +19,8 @@ function displaybuttonformdiv(value) {
 }
 
 function updatedropdown() {
-    const monthyear = JSON.parse(localStorage.getItem("monthyear")) || [];
     const dropdown_menu = document.querySelector(".dropdown-menu");
+    const monthyear = JSON.parse(localStorage.getItem("monthyear")) || [];
     const now = new Date();
     const monthNames = [
         "January",
@@ -41,14 +41,13 @@ function updatedropdown() {
         monthyear.push(monthYear);
         localStorage.setItem("monthyear", JSON.stringify(monthyear));
     }
-
     monthyear.forEach((item) => {
         const element = document.createElement("li");
         const button = document.createElement("button");
         button.className = "dropdown-item";
         button.role = "button";
         button.name = "monthyear";
-        button.value = item;
+        button.value = item.replace("-", "_");
         button.innerText = item;
         element.append(button);
         dropdown_menu.appendChild(element);
