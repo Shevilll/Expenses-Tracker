@@ -10,7 +10,7 @@ def index():
     global month_year
     now = datetime.datetime.now()
     month_year = request.form.get("monthyear")
-    print(month_year)
+    total_earned,total_spent,total_expenses = 0,0,0
     if not month_year:
         month_year = now.strftime("%B-%Y").replace("-","_")
     if month_year == now.strftime("%B-%Y").replace("-","_"):
@@ -19,7 +19,14 @@ def index():
          disable_button = True
     db.execute(f"CREATE TABLE IF NOT EXISTS {month_year} (item VARCHAR(20),radio varchar(10), quantity int, time varchar(10), date varchar(12), day varchar(10), amount float, total float)")
     data = db.execute(f"SELECT * FROM {month_year}").fetchall()
-    return render_template("index.html",data=data, month_year=month_year.replace("_","-"),disable_button=disable_button)
+    if data:
+         for i in data:
+            if i[1] == "Earned":
+                total_earned += i[7]
+            else:
+                total_spent += i[7]
+            total_expenses += i[7]
+    return render_template("index.html",data=data, month_year=month_year.replace("_","-"),disable_button=disable_button,total_earned=total_earned,total_spent=total_spent,total_expenses=total_expenses)
 
 @app.route('/add',methods=["POST","GET"])
 def get_data():
