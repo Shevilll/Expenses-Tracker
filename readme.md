@@ -21,7 +21,7 @@
 
 ## About The Project
 
-Here is a basic Shopping Cart website built with Flask, Sqlite3 and HTML-CSS-JS.
+Here is a basic Expenses Tracker website built with Flask, Sqlite3 and HTML-CSS-JS.
 
 ## Getting Started
 
