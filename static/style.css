@@ -16,11 +16,13 @@ input[type="number"]::-webkit-outer-spin-button {
 #buttonforremovediv,
 #buttoncheckeditems {
     display: none;
-    text-align: center;
     margin: 0 auto;
 }
 #buttonfordiv {
     display: block;
-    text-align: center;
     margin: 0 auto;
+}
+#span {
+    display: flex;
+    justify-content: space-around;
 }
