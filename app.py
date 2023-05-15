@@ -62,11 +62,6 @@ def remove():
         cur.close()
         return redirect("/")
 
-@app.route("/dropdown",methods=["POST", "GET"])
-def dropdown():
-     monthyear = request.form["monthyear"]
-     print(monthyear)
-     return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
